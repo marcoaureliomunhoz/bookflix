@@ -1,0 +1,64 @@
+main {
+  width: 100vw;
+  height: 100vh;
+}
+
+.app-header {
+  background-color: #E8E8E1;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--title-bar {
+    width: 30%;
+
+    &--title {
+      font-weight: bold;
+      font-size: 1.4em;
+    }
+
+    @media (width <= 1600px) {
+      width: 40%;
+    }
+
+    @media (width <= 1300px) {
+      width: 45%;
+    }
+
+    @media (width <= 1100px) {
+      width: 50%;
+    }
+
+    @media (width <= 800px) {
+      width: 90%;
+    }
+  }
+}
+
+.app-body {
+  display: flex;
+  justify-content: center;
+  max-height: calc(100vh - 40px);
+  overflow-x: auto;
+
+  &--content {
+    width: 30%;
+
+    @media (width <= 1600px) {
+      width: 40%;
+    }
+
+    @media (width <= 1300px) {
+      width: 45%;
+    }
+
+    @media (width <= 1100px) {
+      width: 50%;
+    }
+
+    @media (width <= 800px) {
+      width: 90%;
+    }
+  }
+}

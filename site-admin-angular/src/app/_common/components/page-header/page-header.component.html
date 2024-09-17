@@ -1,0 +1,6 @@
+<div class="title">{{title}}</div>
+<div class="buttons">
+  @for (button of buttons; track button.name) {
+    <button (click)="buttonClick(button.name)" title="" [disabled]="button.disabled === true">{{ button.content }}</button>
+  }
+</div>

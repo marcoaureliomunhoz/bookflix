@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  mysqldb_tests:
+    image: mysql:8.4
+    container_name: mysqldb_tests
+    restart: always
+    ports:
+      - "3318:3306"
+    command: --mysql-native-password=ON
+    environment:
+      - MYSQL_ROOT_PASSWORD=111
+      - MYSQL_DATABASE=bookflix
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=1111
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-p111"]
+      interval: 2s
+      timeout: 20s
+      retries: 10
+    volumes:
+      - mysqldb_tests_volume:/var/lib/mysql
+
+volumes:
+  mysqldb_tests_volume:

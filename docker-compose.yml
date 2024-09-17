@@ -1,0 +1,86 @@
+version: '3.9'
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    ports:
+      - "8080:8000"
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_volume:/data
+
+  mysqldb:
+    image: mysql:8.4
+    container_name: mysqldb
+    restart: always
+    ports:
+      - "3308:3306"
+    # command: sh -c "mysqld --mysql-native-password=ON && echo "**HELLO**" "
+    command: --mysql-native-password=ON
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=bookflix
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=1234
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-p123"]
+      interval: 2s
+      timeout: 20s
+      retries: 10
+    volumes:
+      - mysqldb_volume:/var/lib/mysql
+    networks:
+      - bookflix_bridge
+
+  phpmyadmin:
+    depends_on:
+      - mysqldb
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_PORT=3308
+    networks:
+      - bookflix_bridge
+
+  adminapp_node_fastify:
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    container_name: adminapp_node_fastify
+    build:
+      context: server-node-typescript-api-fastify-swagger-prisma-orm-jest-supertest-module-alias
+      dockerfile: Dockerfile
+      args:
+        progress: plain
+        no_cache:
+    ports:
+      - "3001:3000"
+    networks:
+      - bookflix_bridge
+
+  adminapp_angular18:
+    container_name: adminapp_angular18
+    build:
+      context: site-admin-angular
+      dockerfile: Dockerfile
+      args:
+        progress: plain
+    ports:
+      - "4001:80"
+    networks:
+      - bookflix_bridge
+
+networks:
+  bookflix_bridge:
+    driver: bridge
+
+volumes:
+  mysqldb_volume:
+  portainer_volume:

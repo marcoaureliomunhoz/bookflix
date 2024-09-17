@@ -1,0 +1,34 @@
+<app-page-header
+  title="Book Rentals"
+  [buttons]="[
+    { name: buttons.Add, content: 'add' },
+  ]"
+  (onClickButton)="clickHeaderButton($event)"
+/>
+<app-page-body>
+  @for (item of mainList; track item.id) {
+    <app-list-item>
+      <div role="content">
+        <p style="margin-bottom: 5px;">{{ item.bookTitle }}</p>
+        <p>
+          <app-bagde caption="Customer" text="{{ item.customerName }}" />
+          <app-bagde caption="Max Return Date" text="{{ item.formattedMaxReturnDate }}" />
+          @if (item.formattedReturnDate) {
+            <app-bagde caption="Return Date" text="{{ item.formattedReturnDate }}" />
+          }
+        </p>
+      </div>
+      <div role="buttons">
+        @if (!item.returnDate) {
+          <app-list-item-button type="button" text="return" (onClick)="return(item.id!)" />
+        } @else {
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        }
+        <app-list-item-button type="link" text="edit" [link]="['/book-rentals', item.id, 'edit']" />
+      </div>
+    </app-list-item>
+  }
+</app-page-body>
+<app-page-footer>
+  <app-pagination [pagination]="pagination" (onChange)="changePage($event)" />
+</app-page-footer>

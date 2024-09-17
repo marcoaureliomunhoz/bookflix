@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// Commands
+// https://www.prisma.io/docs/orm/reference/prisma-cli-reference#prisma-migrate
+// npx prisma migrate dev --name xxxxx                      <-- creates and applies
+// npx prisma migrate dev --create-only --name xxxxx
+// npx prisma db push
+// npx prisma studio
+// npx prisma migrate reset
+// npx prisma migrate deploy
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Publisher {
+  publisher_id      Int           @id @default(autoincrement())
+  name              String        @db.VarChar(500)
+  deletion_date     DateTime?
+  books             Book[]
+
+  @@map("publisher")
+}
+
+model Book {
+  book_id           Int           @id @default(autoincrement())
+  title             String        @db.VarChar(500)
+  quantity          Int
+  max_rental_days   Int
+  deletion_date     DateTime?
+  publisher         Publisher?    @relation(fields: [publisher_id], references: [publisher_id])
+  publisher_id      Int?
+  book_rentals      BookRental[]
+  number_of_rentals Int
+  number_of_returns Int
+
+  @@map("book")
+}
+
+model Customer {
+  customer_id       Int           @id @default(autoincrement())
+  name              String        @db.VarChar(250)
+  deletion_date     DateTime?
+  book_rentals      BookRental[]
+
+  @@map("customer")
+}
+
+model BookRental {
+  book_rental_id    Int           @id @default(autoincrement())
+  creation_date     DateTime
+  max_return_date   DateTime
+  return_date       DateTime?
+  book              Book?         @relation(fields: [book_id], references: [book_id])
+  book_id           Int
+  customer          Customer?     @relation(fields: [customer_id], references: [customer_id])
+  customer_id       Int
+
+  @@map("book_rental")
+}

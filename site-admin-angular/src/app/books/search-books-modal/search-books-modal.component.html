@@ -1,0 +1,29 @@
+@if (visible) {
+  <app-modal
+    title="Search Books"
+    (onClose)="clickCloseButton()"
+  >
+    <div role="body">
+      @for (item of list; track item.id) {
+        <app-list-item>
+          <div role="content">
+            <p style="margin-bottom: 5px;">
+              {{ item.title }}
+            </p>
+            <p>
+              <app-bagde caption="Inventory" text="{{ item.quantity }}" />
+              <app-bagde caption="Avaliable" text="{{ item.quantity - (item.numberOfRentals - item.numberOfReturns) }}" />
+            </p>
+          </div>
+          <div role="buttons">
+            @if (item.quantity - (item.numberOfRentals - item.numberOfReturns) > 0) {
+              <app-list-item-button type="button" text="select" color="green" (onClick)="onSelect.emit(item)" />
+            } @else {
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            }
+          </div>
+        </app-list-item>
+      }
+    </div>
+  </app-modal>
+}

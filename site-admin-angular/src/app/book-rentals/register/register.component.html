@@ -1,0 +1,24 @@
+<app-page-header
+  [title]="title"
+  [buttons]="[
+    { name: buttons.Save, content: 'save', disabled: form.invalid || form.disabled}
+  ]"
+  (onClickButton)="clickHeaderButton($event)"
+/>
+<app-page-body>
+  <div [formGroup]="form">
+    <app-input-group label="Customer" [actions]="form.disabled ? [] : [{ name: 'search', text: 'search' }]" (onAction)="searchCustomers()">
+      <input type="hidden" id="customerId" formControlName="customerId" />
+      <input type="text" readonly [value]="selectedCustomer?.name" />
+    </app-input-group>
+    <app-input-group label="Book" [actions]="id ? [] : [{ name: 'search', text: 'search' }]" (onAction)="searchBooks()">
+      <input type="hidden" id="bookId" formControlName="bookId" />
+      <input type="text" readonly [value]="selectedBook?.title" />
+    </app-input-group>
+    <app-input-group label="Max Return Date">
+      <input type="date" id="maxReturnDate" formControlName="maxReturnDate"/>
+    </app-input-group>
+  </div>
+</app-page-body>
+<app-search-customers-modal [visible]="searchCustomersModalVisible" (onSelect)="selectCustomer($event)" (onClose)="hideModals()" />
+<app-search-books-modal [visible]="searchBooksModalVisible" (onSelect)="selectBook($event)" (onClose)="hideModals()" />

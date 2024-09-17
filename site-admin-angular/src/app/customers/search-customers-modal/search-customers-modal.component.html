@@ -1,0 +1,19 @@
+@if (visible) {
+  <app-modal
+    title="Search Customers"
+    (onClose)="clickCloseButton()"
+  >
+    <div role="body">
+      @for (item of list; track item.id) {
+        <app-list-item>
+          <div role="content">
+            {{ item.name }}
+          </div>
+          <div role="buttons">
+            <app-list-item-button type="button" text="select" color="green" (onClick)="onSelect.emit(item)" />
+          </div>
+        </app-list-item>
+      }
+    </div>
+  </app-modal>
+}

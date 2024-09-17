@@ -1,0 +1,14 @@
+<app-page-header
+  [title]="title"
+  [buttons]="[
+    { name: buttons.Save, content: 'save', disabled: form.invalid}
+  ]"
+  (onClickButton)="clickHeaderButton($event)"
+/>
+<app-page-body>
+  <div [formGroup]="form">
+    <app-input-group label="Name">
+      <input type="text" id="name" formControlName="name" />
+    </app-input-group>
+  </div>
+</app-page-body>

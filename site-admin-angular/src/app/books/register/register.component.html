@@ -1,0 +1,30 @@
+<app-page-header
+  [title]="title"
+  [buttons]="[
+    { name: buttons.Save, content: 'save', disabled: form.invalid}
+  ]"
+  (onClickButton)="clickHeaderButton($event)"
+/>
+<app-page-body>
+  <div [formGroup]="form">
+    <app-input-group label="Title">
+      <input type="text" id="title" formControlName="title" />
+    </app-input-group>
+    <div style="display: flex; justify-content: space-between; margin-top: 10px; margin-bottom: 10px;">
+      <app-input-group label="Quantity" width="49%">
+        <input type="number" id="quantity" formControlName="quantity" />
+      </app-input-group>
+      <app-input-group label="Max Rental Days" width="49%">
+        <input type="number" id="maxRentalDays" formControlName="maxRentalDays" />
+      </app-input-group>
+    </div>
+    <app-input-group label="Publisher">
+      <select id="publisherId" formControlName="publisherId" attr.data-selected="{{ form.value.publisherId ?? '0' }}">
+        <option></option>
+        @for (publisher of publishers; track publisher.id) {
+          <option [value]="publisher.id" [selected]="publisher.id == form.value.publisherId">{{ publisher.name }}</option>
+        }
+      </select>
+    </app-input-group>
+  </div>
+</app-page-body>

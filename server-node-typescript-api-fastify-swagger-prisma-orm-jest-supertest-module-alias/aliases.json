@@ -1,0 +1,58 @@
+[
+    {
+      "name": "app",
+      "tsconfig": {
+        "alias": "@app/*",
+        "path": "./app/*"
+      },
+      "jestconfig": {
+        "alias": "@app/(.*)",
+        "path": "<rootDir>/app/$1"
+      }
+    },
+    {
+      "name": "lib",
+      "tsconfig": {
+        "alias": "@lib/*",
+        "path": "./app/lib/*"
+      },
+      "jestconfig": {
+        "alias": "@lib/(.*)",
+        "path": "<rootDir>/app/lib/$1"
+      }
+    },
+    {
+      "name": "infra",
+      "tsconfig": {
+        "alias": "@infra/*",
+        "path": "./app/_infra/*"
+      },
+      "jestconfig": {
+        "alias": "@infra/(.*)",
+        "path": "<rootDir>/app/_infra/$1"
+      }
+    },
+    {
+      "name": "entities",
+      "tsconfig": {
+        "alias": "@entities/*",
+        "path": "./app/entities/*"
+      },
+      "jestconfig": {
+        "alias": "@entities/(.*)",
+        "path": "<rootDir>/app/entities/$1"
+      }
+    },
+    {
+      "name": "application",
+      "tsconfig": {
+        "alias": "@application/*",
+        "path": "./app/application/*"
+      },
+      "jestconfig": {
+        "alias": "@application/(.*)",
+        "path": "<rootDir>/app/application/$1"
+      }
+    }
+  ]
+  

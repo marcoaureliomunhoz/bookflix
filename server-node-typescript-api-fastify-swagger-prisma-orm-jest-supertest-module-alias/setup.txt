@@ -1,0 +1,32 @@
+npm init
+
+npm i module-alias
+npm i fastify @fastify/swagger @fastify/swagger-ui
+npm i @prisma/client
+
+npm i -D @types/module-alias
+npm i -D typescript ts-node-dev @types/node
+npm i -D prisma
+npm i -D jest ts-jest @types/jest
+npm i -D eslint-plugin-jest
+npm i -D supertest @types/supertest
+
+npx tsc --init
+npx prisma init --datasource-provider mysql
+npx eslint --init
+# install eslint in vscode and configure one
+npx jest --init
+
+docker build --progress=plain --no-cache -t adminapp_node_fastify_vn .
+docker run --name adminapp_node_fastify_vn -d -p 3001:3000 adminapp_node_fastify_vn
+docker run -it --name adminapp_node_fastify_vn -p 3001:3000 adminapp_node_fastify_vn
+docker stop adminapp_node_fastify_vn
+docker rm adminapp_node_fastify_vn
+docker rmi adminapp_node_fastify_vn --force
+
+docker stop $(docker ps -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker image ls) --force
+
+export DATABASE_URL=mysql://root:123@localhost:3306/bookflix
+node ./dist/server.js

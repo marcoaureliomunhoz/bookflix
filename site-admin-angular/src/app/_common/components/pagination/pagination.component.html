@@ -1,0 +1,15 @@
+@if (pagination) {
+  @if (pagination.page && pagination.page > 1) {
+    <button role="link-to-first-page" (click)="onChange.emit(1)">1</button>
+  }
+  @if (pagination.page && pagination.page > 2) {
+    <button role="link-to-previous-page" (click)="onChange.emit(pagination.page - 1)">&lt;</button>
+  }
+  <span role="current-page">{{ pagination.page }}</span>
+  @if (pagination.page && pagination.numberOfPages && pagination.page < pagination.numberOfPages-1) {
+    <button role="link-to-previous-page" (click)="onChange.emit(pagination.page + 1)">&gt;</button>
+  }
+  @if (pagination.page && pagination.numberOfPages && pagination.page < pagination.numberOfPages) {
+    <button role="link-to-last-page" (click)="onChange.emit(pagination.numberOfPages)">{{ pagination.numberOfPages }}</button>
+  }
+}

@@ -1,0 +1,5 @@
+@if(type === 'link') {
+  <a class="list-item-button" [routerLink]="link" [ngStyle]="{ color: color }" title="">{{ text }}</a>
+}@else {
+  <button class="list-item-button" (click)="this.onClick.emit()" [ngStyle]="{ color: color }" title="">{{ text }}</button>
+}

@@ -1,0 +1,9 @@
+docker build --progress=plain --no-cache -t adminapp_angular18_vn .
+docker run --name adminapp_angular18_vn -d -p 4201:80 adminapp_angular18_vn
+docker stop adminapp_angular18_vn
+docker rm adminapp_angular18_vn
+docker rmi adminapp_angular18_vn --force
+
+docker stop $(docker ps -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker image ls) --force

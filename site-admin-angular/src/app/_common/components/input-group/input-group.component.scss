@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  & label {
+    color: #999;
+  }
+
+  &::ng-deep input {
+    padding: 5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    max-height: 30px;
+  }
+
+  &::ng-deep select {
+    padding: 5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    max-height: 30px;
+  }
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+
+  & .action {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+    color: green;
+    margin-left: 5px;
+    font-size: 0.9em;
+  }
+}

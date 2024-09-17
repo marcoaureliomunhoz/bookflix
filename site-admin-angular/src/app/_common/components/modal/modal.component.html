@@ -1,0 +1,14 @@
+<div class="header">
+  <div class="title">
+    {{ title }}
+  </div>
+  <div>
+    <button (click)="onClose.emit()" title="close">x</button>
+  </div>
+</div>
+<div class="body" #body>
+  <ng-content select="[role=body]"></ng-content>
+</div>
+<div class="footer" #footer>
+  <ng-content select="[role=footer]"></ng-content>
+</div>
